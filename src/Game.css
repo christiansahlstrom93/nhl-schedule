@@ -1,0 +1,142 @@
+.gameContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #eee;
+  padding: 12px 12px 6px 12px;
+  width: 150px;
+  background-color: white;
+  color: #000;
+}
+
+.liveContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #eee;
+  padding: 12px 12px 6px 12px;
+  width: 150px;
+  background-color: white;
+  color: #000;
+  border-bottom: 4px solid rgb(1, 120, 1);
+}
+
+.liveStatus {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #555;
+}
+
+.line {
+  position: absolute;
+  border-radius: 8px;
+  width: 24px;
+  height: 3px;
+  background-color: green;
+  animation-direction: normal;
+  animation: 2s ease-in 1s infinite fadeInAnimation;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.2;
+  }
+  15% {
+    opacity: 0.5;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+.gameContainerFinished {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ddd;
+  padding: 12px;
+  width: 150px;
+  opacity: 0.5;
+  background-color: #eee;
+}
+
+.summary {
+  position: absolute;
+  top: 6px;
+  display: flex;
+  width: 100%;
+  font-size: 11px;
+  color: #999;
+  font-weight: bold;
+  text-transform: uppercase;
+  justify-content: space-around;
+}
+
+.gameDate {
+  display: flex;
+  width: 80%;
+  flex: 1;
+  padding: 0 12px;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: bold;
+  color: #555;
+  align-items: center;
+}
+
+.teamSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  padding: 2px 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+}
+
+.gameWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.gameBox {
+  width: 100%;
+}
+
+.team-logo {
+  width: 20px;
+  height: 20px;
+}
+
+.simulateButton {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  color: black;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 6px 2px 0 2px;
+  cursor: pointer;
+}
