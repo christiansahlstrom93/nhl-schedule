@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import "./Game.css";
 import { get } from "./team-logos/ICON_MAP";
 
-const Game = ({ game, shouldScroll }) => {
+const Game = ({ game, shouldScroll, ImageComp }) => {
   const ref = useRef(null);
   const homeTeam = game.teams.home.team;
   const awayTeam = game.teams.away.team;
@@ -16,6 +16,15 @@ const Game = ({ game, shouldScroll }) => {
         <div>{game.seriesSummary.gameLabel}</div>
       </div>
     );
+  };
+
+  const renderImg = (src, alt, className, style = {}) => {
+    if (ImageComp) {
+      return (
+        <ImageComp src={src} alt={alt} className={className} style={style} />
+      );
+    }
+    return <img src={src} alt={alt} className={className} style={style} />;
   };
 
   useEffect(() => {
@@ -67,11 +76,7 @@ const Game = ({ game, shouldScroll }) => {
         <div className="gameWrapper">
           <div className="gameBox">
             <div className="teamSection">
-              <img
-                className="team-logo"
-                src={get(awayTeam.abbreviation)}
-                alt=""
-              />
+              {renderImg(get(awayTeam.abbreviation), "team", "team-logo")}
               <div className="teamName">{awayTeam.abbreviation}</div>
               {game.status.detailedState.toLowerCase() === "final" || isLive ? (
                 <div>{game.teams.away.score}</div>
@@ -80,11 +85,7 @@ const Game = ({ game, shouldScroll }) => {
               )}
             </div>
             <div className="teamSection">
-              <img
-                className="team-logo"
-                src={get(homeTeam.abbreviation)}
-                alt=""
-              />
+              {renderImg(get(homeTeam.abbreviation), "team", "team-logo")}
               <div className="teamName">{homeTeam.abbreviation}</div>
               {game.status.detailedState.toLowerCase() === "final" || isLive ? (
                 <div>{game.teams.home.score}</div>

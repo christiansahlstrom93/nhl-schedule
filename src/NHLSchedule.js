@@ -5,7 +5,7 @@ import "./Schedule.css";
 let interval;
 
 const Schedule = (props) => {
-  const { daysAgo, daysAhead, doScroll = true } = props;
+  const { daysAgo, daysAhead, doScroll = true, ImageComp } = props;
   const [data, setData] = useState(null);
 
   const fetchSchedule = async () => {
@@ -86,6 +86,7 @@ const Schedule = (props) => {
             <div key={index} className="games-event">
               {event.games.map((game, idx) => (
                 <Game
+                  ImageComp={ImageComp}
                   shouldScroll={game.gamePk === firstLive?.gamePk && doScroll}
                   game={game}
                   key={idx}

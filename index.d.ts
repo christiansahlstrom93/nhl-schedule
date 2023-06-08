@@ -3,6 +3,7 @@ declare module "nhl-schedule" {
     daysAgo?: number;
     daysAhead?: number;
     doScroll?: boolean;
+    ImageComp?: any;
   }
   const NHLSchedule: (props: IScheduleProps) => JSX.Element;
 }
