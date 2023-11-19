@@ -15,7 +15,7 @@ const Schedule = (props) => {
     );
 
     const response = await fetch(
-      `https://api-web.nhle.com/v1/schedule-calendar/${
+      `https://api.algobook.info/api/v1/nhl/schedule/${
         startDate.toISOString().split("T")[0]
       }`
     );
@@ -48,17 +48,13 @@ const Schedule = (props) => {
 
   const firstLive = filteredData
     .map((event) =>
-      event.games.find(
-        (game) => game.gameState.toLowerCase() === "scheduled"
-      )
+      event.games.find((game) => game.gameState.toLowerCase() === "scheduled")
     )
     .filter((foundGames) => !!foundGames)[0];
 
   const anyLive = filteredData
     .map((event) =>
-      event.games.find(
-        (game) => game.gameState.toLowerCase() === "in progress"
-      )
+      event.games.find((game) => game.gameState.toLowerCase() === "in progress")
     )
     .filter((foundGames) => !!foundGames)[0];
 
