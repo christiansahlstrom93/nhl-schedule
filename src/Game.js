@@ -4,16 +4,20 @@ import { get } from "./team-logos/ICON_MAP";
 
 const Game = ({ game, shouldScroll, ImageComp }) => {
   const ref = useRef(null);
-  const homeTeam = game.teams.home.team;
-  const awayTeam = game.teams.away.team;
+  const homeTeam = game.homeTeam;
+  const awayTeam = game.awayTeam;
   const summary = () => {
-    if (!game?.seriesSummary?.seriesStatusShort) {
+    if (!game?.seriesStatus) {
       return null;
     }
     return (
       <div className="summary">
-        <div>{game.seriesSummary.seriesStatusShort}</div>
-        <div>{game.seriesSummary.gameLabel}</div>
+        <div>
+          <span>{game.seriesStatus.homeTeamWins}</span>
+          <span>-</span>
+          <span>{game.seriesStatus.awayTeamWins}</span>
+        </div>
+        <div>{`Game ${game.seriesStatus.gameNumberOfSeries}`}</div>
       </div>
     );
   };
@@ -37,7 +41,7 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
     }
   }, [ref, shouldScroll, game]);
 
-  const isLive = game.status.detailedState.toLowerCase() === "in progress";
+  const isLive = game.gameState.toLowerCase() === "in progress";
 
   const renderDate = () => {
     if (isLive) {
@@ -50,7 +54,7 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
     }
     return (
       <div className="gameDate">
-        {new Date(game.gameDate).toLocaleDateString("en-us", {
+        {new Date(game.startTimeUTC).toLocaleDateString("en-us", {
           weekday: "short",
           hour: "2-digit",
           minute: "2-digit",
@@ -65,7 +69,7 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
         id={game.id}
         ref={ref}
         className={
-          game.status.detailedState.toLowerCase() === "final"
+          game.gameState.toLowerCase() === "off"
             ? "gameContainerFinished"
             : isLive
             ? "liveContainer"
@@ -76,19 +80,19 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
         <div className="gameWrapper">
           <div className="gameBox">
             <div className="teamSection">
-              {renderImg(get(awayTeam.abbreviation), "team", "team-logo")}
-              <div className="teamName">{awayTeam.abbreviation}</div>
-              {game.status.detailedState.toLowerCase() === "final" || isLive ? (
-                <div>{game.teams.away.score}</div>
+              {renderImg(get(awayTeam.abbrev), "team", "team-logo")}
+              <div className="teamName">{awayTeam.abbrev}</div>
+              {game.gameState.toLowerCase() === "off" || isLive ? (
+                <div>{awayTeam.score}</div>
               ) : (
                 <div></div>
               )}
             </div>
             <div className="teamSection">
-              {renderImg(get(homeTeam.abbreviation), "team", "team-logo")}
-              <div className="teamName">{homeTeam.abbreviation}</div>
-              {game.status.detailedState.toLowerCase() === "final" || isLive ? (
-                <div>{game.teams.home.score}</div>
+              {renderImg(get(homeTeam.abbrev), "team", "team-logo")}
+              <div className="teamName">{homeTeam.abbrev}</div>
+              {game.gameState.toLowerCase() === "off" || isLive ? (
+                <div>{homeTeam.score}</div>
               ) : (
                 <div></div>
               )}

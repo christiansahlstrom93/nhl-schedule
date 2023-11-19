@@ -5,28 +5,22 @@ import "./Schedule.css";
 let interval;
 
 const Schedule = (props) => {
-  const { daysAgo, daysAhead, doScroll = true, ImageComp } = props;
+  const { daysAgo, doScroll = true, ImageComp } = props;
   const [data, setData] = useState(null);
 
   const fetchSchedule = async () => {
     const startDate = new Date();
-    const endDate = new Date();
     startDate.setHours(
       startDate.getHours() - (daysAgo !== undefined ? daysAgo : 3) * 24
     );
-    endDate.setHours(
-      endDate.getHours() + (daysAhead !== undefined ? daysAhead : 7) * 24
-    );
 
     const response = await fetch(
-      `https://statsapi.web.nhl.com/api/v1/schedule?startDate=${
+      `https://api-web.nhle.com/v1/schedule-calendar/${
         startDate.toISOString().split("T")[0]
-      }&endDate=${
-        endDate.toISOString().split("T")[0]
-      }&hydrate=team,linescore,game(content(media(epg)),seriesSummary),metadata,seriesSummary(series)&site=en_nhlNORDIC`
+      }`
     );
     const data = await response.json();
-    setData(data.dates);
+    setData(data.gameWeek);
   };
 
   useEffect(() => {
@@ -55,7 +49,7 @@ const Schedule = (props) => {
   const firstLive = filteredData
     .map((event) =>
       event.games.find(
-        (game) => game.status.detailedState.toLowerCase() === "scheduled"
+        (game) => game.gameState.toLowerCase() === "scheduled"
       )
     )
     .filter((foundGames) => !!foundGames)[0];
@@ -63,7 +57,7 @@ const Schedule = (props) => {
   const anyLive = filteredData
     .map((event) =>
       event.games.find(
-        (game) => game.status.detailedState.toLowerCase() === "in progress"
+        (game) => game.gameState.toLowerCase() === "in progress"
       )
     )
     .filter((foundGames) => !!foundGames)[0];
@@ -87,7 +81,7 @@ const Schedule = (props) => {
               {event.games.map((game, idx) => (
                 <Game
                   ImageComp={ImageComp}
-                  shouldScroll={game.gamePk === firstLive?.gamePk && doScroll}
+                  shouldScroll={game.id === firstLive?.id && doScroll}
                   game={game}
                   key={idx}
                 />
