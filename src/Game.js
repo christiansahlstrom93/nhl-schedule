@@ -41,7 +41,7 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
     }
   }, [ref, shouldScroll, game]);
 
-  const isLive = game.gameState.toLowerCase() === "in progress";
+  const isLive = game.gameState.toLowerCase() === "live";
 
   const renderDate = () => {
     if (isLive) {

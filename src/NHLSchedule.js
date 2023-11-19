@@ -48,13 +48,13 @@ const Schedule = (props) => {
 
   const firstLive = filteredData
     .map((event) =>
-      event.games.find((game) => game.gameState.toLowerCase() === "scheduled")
+      event.games.find((game) => game.gameState.toLowerCase() === "fut")
     )
     .filter((foundGames) => !!foundGames)[0];
 
   const anyLive = filteredData
     .map((event) =>
-      event.games.find((game) => game.gameState.toLowerCase() === "in progress")
+      event.games.find((game) => game.gameState.toLowerCase() === "live")
     )
     .filter((foundGames) => !!foundGames)[0];
 

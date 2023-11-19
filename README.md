@@ -20,7 +20,7 @@ With real time updates, the widget will automatically update the goals, time and
 
 ## Some notes
 
-- You can decide how many days past or ahead you want to get games, default is three days back and 7 days ahead
+- You can decide how many days past you want to get games, default is three days back
 - If no results are given (off season for example), nothing will show.
 
 Please go to our website for more information and full documentation on how it is used, [algobook.info](https://algobook.info/opensource)
