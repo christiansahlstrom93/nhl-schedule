@@ -43,12 +43,23 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
 
   const isLive = game.gameState.toLowerCase() === "live";
 
+  const getPeriodNumber = (period) => {
+    if (period === 1) {
+      return "1st";
+    } else if (period === 2) {
+      return "2nd";
+    } else if (period === 3) {
+      return "3rd";
+    }
+    return period;
+  };
+
+  // <span>{`${game.linescore.currentPeriodTimeRemaining}`}</span>
   const renderDate = () => {
     if (isLive) {
       return (
         <div className="liveStatus">
-          <span>{game.linescore.currentPeriodOrdinal}</span>
-          <span>{`${game.linescore.currentPeriodTimeRemaining}`}</span>
+          <span>{getPeriodNumber(game.periodDescriptor?.number)}</span>
         </div>
       );
     }
