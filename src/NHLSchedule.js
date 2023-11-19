@@ -79,7 +79,7 @@ const Schedule = (props) => {
 
   if (anyLive) {
     subscribe(30000);
-  } else if (interval) {
+  } else {
     subscribe(180000);
   }
 
