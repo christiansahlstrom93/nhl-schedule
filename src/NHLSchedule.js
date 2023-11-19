@@ -34,6 +34,7 @@ const Schedule = (props) => {
 
   useEffect(() => {
     fetchSchedule();
+    fetchScoreboard();
   }, []);
 
   const subscribe = (ms) => {
