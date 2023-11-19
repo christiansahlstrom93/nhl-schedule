@@ -1,6 +1,6 @@
 {
   "name": "nhl-schedule",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "A widget that will show past and upcoming games in the NHL.",
   "main": "./dist/index.js",
   "types": "index.d.ts",
