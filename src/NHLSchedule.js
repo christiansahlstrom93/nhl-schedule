@@ -43,6 +43,7 @@ const Schedule = (props) => {
 
     interval = setInterval(() => {
       fetchScoreboard();
+      fetchSchedule();
     }, ms);
   };
 
