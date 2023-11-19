@@ -7,6 +7,15 @@ let interval;
 const Schedule = (props) => {
   const { daysAgo, doScroll = true, ImageComp } = props;
   const [data, setData] = useState(null);
+  const [scoreboard, setScoreboard] = useState(null);
+
+  const fetchScoreboard = async () => {
+    const response = await fetch(
+      `https://api.algobook.info/api/v1/nhl/scoreboard`
+    );
+    const data = await response.json();
+    setScoreboard(data);
+  };
 
   const fetchSchedule = async () => {
     const startDate = new Date();
@@ -33,8 +42,16 @@ const Schedule = (props) => {
     }
 
     interval = setInterval(() => {
-      fetchSchedule();
+      fetchScoreboard();
     }, ms);
+  };
+
+  const getScoreboard = (gameId) => {
+    if (!scoreboard) {
+      return null;
+    }
+
+    return scoreboard.games.find((game) => game.id === gameId);
   };
 
   if (!data) {
@@ -79,6 +96,7 @@ const Schedule = (props) => {
                   ImageComp={ImageComp}
                   shouldScroll={game.id === firstLive?.id && doScroll}
                   game={game}
+                  scoreboard={getScoreboard(game.id)}
                   key={idx}
                 />
               ))}

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import "./Game.css";
 import { get } from "./team-logos/ICON_MAP";
 
-const Game = ({ game, shouldScroll, ImageComp }) => {
+const Game = ({ game, shouldScroll, ImageComp, scoreboard }) => {
   const ref = useRef(null);
   const homeTeam = game.homeTeam;
   const awayTeam = game.awayTeam;
@@ -20,6 +20,10 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
         <div>{`Game ${game.seriesStatus.gameNumberOfSeries}`}</div>
       </div>
     );
+  };
+
+  const isOver = (status) => {
+    return status.toLowerCase() === "off" || status.toLowerCase() === "final";
   };
 
   const renderImg = (src, alt, className, style = {}) => {
@@ -54,12 +58,12 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
     return period;
   };
 
-  // <span>{`${game.linescore.currentPeriodTimeRemaining}`}</span>
   const renderDate = () => {
     if (isLive) {
       return (
         <div className="liveStatus">
           <span>{getPeriodNumber(game.periodDescriptor?.number)}</span>
+          <span>{scoreboard?.clock?.timeRemaining}</span>
         </div>
       );
     }
@@ -80,7 +84,7 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
         id={game.id}
         ref={ref}
         className={
-          game.gameState.toLowerCase() === "off"
+          isOver(game.gameState)
             ? "gameContainerFinished"
             : isLive
             ? "liveContainer"
@@ -93,7 +97,7 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
             <div className="teamSection">
               {renderImg(get(awayTeam.abbrev), "team", "team-logo")}
               <div className="teamName">{awayTeam.abbrev}</div>
-              {game.gameState.toLowerCase() === "off" || isLive ? (
+              {isOver(game.gameState) || isLive ? (
                 <div>{awayTeam.score}</div>
               ) : (
                 <div></div>
@@ -102,7 +106,7 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
             <div className="teamSection">
               {renderImg(get(homeTeam.abbrev), "team", "team-logo")}
               <div className="teamName">{homeTeam.abbrev}</div>
-              {game.gameState.toLowerCase() === "off" || isLive ? (
+              {isOver(game.gameState) || isLive ? (
                 <div>{homeTeam.score}</div>
               ) : (
                 <div></div>
