@@ -33,13 +33,9 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
   ) => {
     if (ImageComp) {
       return (
-        <ImageComp
-          fill={true}
-          src={src}
-          alt={alt}
-          className={className}
-          style={style}
-        />
+        <div style={style}>
+          <ImageComp fill={true} src={src} alt={alt} className={className} />
+        </div>
       );
     }
     return <img src={src} alt={alt} className={className} style={style} />;
