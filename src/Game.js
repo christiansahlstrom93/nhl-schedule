@@ -25,7 +25,12 @@ const Game = ({ game, shouldScroll, ImageComp }) => {
     return status.toLowerCase() === "off" || status.toLowerCase() === "final";
   };
 
-  const renderImg = (src, alt, className, style = {}) => {
+  const renderImg = (
+    src,
+    alt,
+    className,
+    style = { width: "20px", height: "20px" }
+  ) => {
     if (ImageComp) {
       return (
         <ImageComp src={src} alt={alt} className={className} style={style} />
