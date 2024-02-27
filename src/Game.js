@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import "./Game.css";
-import { get } from "./team-logos/ICON_MAP";
 
-const Game = ({ game, shouldScroll, ImageComp, scoreboard }) => {
+const Game = ({ game, shouldScroll, ImageComp }) => {
   const ref = useRef(null);
   const homeTeam = game.homeTeam;
   const awayTeam = game.awayTeam;
@@ -63,7 +62,7 @@ const Game = ({ game, shouldScroll, ImageComp, scoreboard }) => {
       return (
         <div className="liveStatus">
           <span>{getPeriodNumber(game.periodDescriptor?.number)}</span>
-          <span>{scoreboard?.clock?.timeRemaining}</span>
+          <span>{game?.clock?.timeRemaining}</span>
         </div>
       );
     }
@@ -95,7 +94,7 @@ const Game = ({ game, shouldScroll, ImageComp, scoreboard }) => {
         <div className="gameWrapper">
           <div className="gameBox">
             <div className="teamSection">
-              {renderImg(get(awayTeam.abbrev), "team", "team-logo")}
+              {renderImg(awayTeam.logo, "team", "team-logo")}
               <div className="teamName">{awayTeam.abbrev}</div>
               {isOver(game.gameState) || isLive ? (
                 <div>{awayTeam.score}</div>
@@ -104,7 +103,7 @@ const Game = ({ game, shouldScroll, ImageComp, scoreboard }) => {
               )}
             </div>
             <div className="teamSection">
-              {renderImg(get(homeTeam.abbrev), "team", "team-logo")}
+              {renderImg(homeTeam.logo, "team", "team-logo")}
               <div className="teamName">{homeTeam.abbrev}</div>
               {isOver(game.gameState) || isLive ? (
                 <div>{homeTeam.score}</div>
